@@ -1,0 +1,59 @@
+<?php
+/**
+ * @file
+ * Provide a block to display node properties.
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function token_block_block_info() {
+  $blocks['token_block'] = array(
+    'info' => t('Token block'),
+    'description' => 'Displays text and token replacements from a referenced entity.',
+    'class' => 'TokenBlock',
+    'required contexts' => array('entity' => 'entity'),
+  );
+
+  return $blocks;
+}
+
+function token_block_autoload_info() {
+  return array(
+    'TokenBlock' => 'token_block.block.inc',
+  );
+}
+
+/**
+ * Helper function to build a list of fields that have been made available as
+ * a block.
+ * @return array
+ *   An array with all entity fields with known instances.
+ */
+function token_block_get_block_list() {
+  $types = &backdrop_static(__FUNCTION__, array());
+  if (!empty($types)) {
+    return $types;
+  }
+
+  $cache_key = 'token_block_list';
+  if ($cache = cache_get($cache_key)) {
+    $types = $cache->data;
+    if (!empty($types)) {
+      return $types;
+    }
+  }
+
+  // This will hold all the individual field content types.
+  $all_entity_info = entity_get_info();
+  foreach ($all_entity_info as $entity_type => $entity_info) {
+    $description = t('Tokens from the available @type content.', array('@type' => backdrop_strtolower($entity_info['label'])));
+    $types[$entity_type] = array(
+      'info' => t('Tokens for @entity_type entities', array('@entity_type' => backdrop_strtolower($entity_info['label']))),
+      'description' => $description,
+      'required contexts' => array($entity_type => $entity_type),
+    );
+  }
+  cache_set($cache_key, $types);
+  return $types;
+}

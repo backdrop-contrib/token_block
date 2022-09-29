@@ -1,0 +1,6 @@
+name = Token Block
+type = module
+description = Provides a block that allows to insert replacement entity and global tokens in a text field.
+backdrop = 1.x
+package = Other
+
