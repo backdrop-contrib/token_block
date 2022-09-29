@@ -56,8 +56,7 @@ class TokenBlock extends Block {
    */
   function getContent() {
     if (!empty($this->settings['content'])) {
-      $contexts = array_keys($this->settings['contexts']);
-      $entity_type = reset($contexts);
+      $entity_type = $this->childDelta;
       $entity = $this->contexts[$entity_type]->data;
       $data = array($entity_type => $entity);
       return check_markup(token_replace($this->settings['content'], $data), $this->settings['format'], '', TRUE);
