@@ -15,7 +15,10 @@ Please notice that adding inexistent tokens will not create a replacement. For e
 
 You may use chained tokens such as `[node:author:mail]`. 
 
-The admin dialog for the block includes a link to the available token tree. Notice that, because the dialog is currently displayed in a modal window, the token tree may display in incomplete fashion. This is known issue that has not been addressed yet.  
+Related modules
+----
+
+A related module that provides similar (but somewhat less flexible) functionality is [Node Property Block](https://github.com/backdrop-contrib/node_property_block), which allows administrators to display node fields like title, author, creation date, etc.
 
 Installation
 ------------
