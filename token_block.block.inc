@@ -26,9 +26,8 @@ class TokenBlock extends Block {
    */
   function form(&$form, &$form_state) {
      parent::form($form, $form_state);
-    $token_types = array_keys($this->settings['contexts']);
     $variables = array(
-      'token_types' => $token_types,
+      'token_types' => array($this->childDelta),
     );
 
     $form['content'] = array(
